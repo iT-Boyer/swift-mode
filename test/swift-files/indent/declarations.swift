@@ -390,12 +390,14 @@ private
     z,
     w:
       consuming
+      sending
       Int
       ...
   )
   async
   throws
   ->
+  sending
   [A]
   where
     A:
@@ -487,6 +489,17 @@ func foo
   (a: A,
    a: A
   ) {
+}
+
+func foo()
+  throws
+  (
+    any
+      Error
+  )
+  ->
+  Int {
+    1
 }
 
 // Enumeration declarations
@@ -698,6 +711,7 @@ protocol Foo {
     func foo(x: Int, y: Int) throws -> (A, B)
     func bar(x: Int) throws
     func baz(x: () throws -> Int) rethrows
+    func aaa() async
     init<A, B>(x: Int) throws
       where
         A: C
@@ -804,6 +818,14 @@ class Foo {
     package
       func foo() {
     }
+
+    func foo() async {
+        nonisolated
+          (
+            unsafe
+          )
+          var x = 1
+    }
 }
 
 // async let
@@ -854,20 +876,20 @@ func foo()
 
 
 // Value and Type Parameter Packs
-// https://github.com/apple/swift-evolution/blob/main/proposals/0393-parameter-packs.md#introduction
+// https://github.com/apple/swift-evolution/blob/main/proposals/0393-parameter-packs.md
 // https://github.com/apple/swift-evolution/blob/main/proposals/0398-variadic-types.md
 
 func constrain<each S: Sequence>(
   _: repeat
-    each // swift-mode:test:known-bug
-    S // swift-mode:test:known-bug
+    each
+    S
 ) where (
           repeat
-            ( // swift-mode:test:known-bug
+            (
               each
                 S
             )
-              .Element
+            .Element
         ) == (Int, String) {
 }
 

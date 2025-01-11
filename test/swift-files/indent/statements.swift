@@ -332,6 +332,26 @@ for
     foo()
 }
 
+// Pack iteration
+// https://github.com/swiftlang/swift-evolution/blob/main/proposals/0408-pack-iteration.md
+for element
+    in
+    repeat
+      each
+      element {
+}
+
+for (left, right)
+    in
+    repeat
+      (
+        each
+          lhs,
+        each
+          rhs
+      ) {
+}
+
 
 // While statements
 
@@ -1206,6 +1226,18 @@ catch
 {
     foo()
     foo()
+}
+
+do
+  throws
+  (
+    any
+      Error
+  ) {
+    foo()
+} catch
+  let
+    e {
 }
 
 // Multi-Pattern Catch Clauses
